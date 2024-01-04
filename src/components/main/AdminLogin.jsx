@@ -1,12 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import {
   Ripple,
   Input,
   initTE,
 } from "tw-elements";
+import { unauthorizedAxios } from '../../axios/axios';
+import RootContext from '../../context/RootContext';
 
 function AdminLogin() {
+  const navigate = useNavigate();
+  const context = useContext(RootContext);
+
+  const [credential, setCredential] = useState({
+    username: "",
+    password: ""
+  });
+
+  const handleCredentialChange = e => {
+    setCredential({ ...credential, [e.target.name]: e.target.value });
+  }
+
+  const login = async payload => {
+    try {
+      const res = await unauthorizedAxios.post("/auth/login/", payload);
+      console.log("res:", res);
+      const data = res?.data;
+      console.log("data:", data);
+      localStorage.setItem("token", data?.token);
+      window.location.reload();
+    } catch (err) {
+      console.log("err:", err);
+    }
+  }
+
+  const adminLogin = e => {
+    e.preventDefault();
+    console.log(credential);
+    login(credential);
+  }
+
+  useEffect(() => {
+    if (context.isLogin) {
+      navigate('/');
+    }
+  });
+
   useEffect(() => {
     initTE({ Ripple, Input });
   });
@@ -27,13 +67,14 @@ function AdminLogin() {
             <div className="text-4xl text-center font-semibold text-slate-600">Bike.com</div>
             <div className="text-xl text-center text-slate-400">Welcome back!</div>
           </div>
-          <form className="px-4 py-6 text-lg">
+          <form onSubmit={adminLogin} className="px-4 py-6 text-lg">
             <div className="mb-8 flex flex-col gap-4">
               <div className="relative font-roboto" data-te-input-wrapper-init>
                 <input
-                  type="email"
+                  name="username"
+                  onChange={handleCredentialChange}
+                  type="text"
                   className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
-                  id="email"
                   placeholder="Enter ID"
                 />
                 <label htmlFor="email" className="font-roboto pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none">
@@ -42,9 +83,10 @@ function AdminLogin() {
               </div>
               <div className="relative font-roboto" data-te-input-wrapper-init>
                 <input
+                  name="password"
+                  onChange={handleCredentialChange}
                   type="password"
                   className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
-                  id="password"
                   placeholder="Password"
                 />
                 <label htmlFor="password" className="font-roboto pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none">

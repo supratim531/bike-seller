@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import bikeLogo from "../../assets/bike.png";
 import adminLogo from "../../assets/admin.png";
@@ -6,9 +6,11 @@ import {
   Collapse,
   initTE,
 } from "tw-elements";
+import RootContext from '../../context/RootContext';
+import { logout } from '../../utils/logout';
 
 function Navbar() {
-  const [isLogin, setIsLogin] = useState(false);
+  const context = useContext(RootContext);
 
   useEffect(() => {
     initTE({ Collapse });
@@ -26,7 +28,7 @@ function Navbar() {
         </div>
         <div className="">
           {
-            isLogin ?
+            context?.isLogin ?
               <div className="mr-2 flex space-x-4">
                 <div className="flex justify-center items-center">
                   <button className="px-3 py-1 flex items-center space-x-2 rounded-full shadow-sm shadow-green-900 bg-white">
@@ -36,11 +38,11 @@ function Navbar() {
                     <div className="font-medium text-green-900">POST</div>
                   </button>
                 </div>
-                <div className="relative pt-4 flex flex-col items-center cursor-pointer">
-                  <div className="">
+                <div className="relative pt-4 flex flex-col items-center">
+                  <div onClick={logout} className="cursor-pointer">
                     <i className="fa-solid fa-right-from-bracket text-3xl text-red-600"></i>
                   </div>
-                  <span className="font-[Roboto] font-semibold text-center text-[0.7rem] text-green-950">Logout</span>
+                  <span onClick={logout} className="cursor-pointer font-[Roboto] font-semibold text-center text-[0.7rem] text-green-950">Logout</span>
                 </div>
               </div> :
               <div className="relative mr-2 pt-2 flex flex-col items-center cursor-pointer">

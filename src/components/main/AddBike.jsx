@@ -6,6 +6,7 @@ import {
 	Input,
 	initTE,
 } from "tw-elements";
+import { authorizedAxios } from '../../axios/axios';
 
 function AddBike() {
 	const images = useRef(null);
@@ -47,13 +48,36 @@ function AddBike() {
 		return reader;
 	}
 
+	const addBike = async payload => {
+		try {
+			const res = await authorizedAxios.post("/admins/upload/", payload);
+			console.log("res:", res);
+			const data = res?.data;
+			console.log("data:", data);
+		} catch (err) {
+			console.log("err:", err);
+		}
+	}
+
 	const addNewBike = (e) => {
+		e.preventDefault();
 		bike.image_name = bikeImage.name;
 		bike.image_b64 = bikeImage.b64;
-		bike.bike_meta = bikeMeta;
+		bike.bike_meta = [bikeMeta];
 		bike.bike_image = bikeImages;
 		console.log("Bike:", bike);
-		e.preventDefault();
+		addBike(bike);
+	}
+
+	const handleBikeChange = e => {
+		// setBike({ ...bike, [e.target.name]: e.target.value });
+
+		setBike(prev => {
+			return {
+				...prev,
+				[e.target.name]: e.target.value
+			}
+		});
 	}
 
 	useEffect(() => {
@@ -103,7 +127,8 @@ function AddBike() {
 					<div className="relative font-roboto" data-te-input-wrapper-init>
 						<input
 							value={bike.bike_model}
-							onChange={e => setBike({ ...bike, bike_model: e.target.value })}
+							name="bike_model"
+							onChange={handleBikeChange}
 							type="text"
 							className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
 							placeholder="Bike Model"
