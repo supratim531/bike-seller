@@ -67,6 +67,8 @@ function AddBike() {
 		bike.bike_image = bikeImages;
 		console.log("Bike:", bike);
 		addBike(bike);
+		alert("A New Bike Posted");
+		window.location.reload();
 	}
 
 	const handleBikeChange = e => {
