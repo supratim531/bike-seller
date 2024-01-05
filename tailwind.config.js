@@ -3,8 +3,8 @@ module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/tw-elements/dist/js/**/*.js",
-    'node_modules/flowbite-react/lib/esm/**/*.js',
+    "./node_modules/tw-elements/dist/js/**/*.{js,jsx}",
+    './node_modules/flowbite-react/lib/esm/**/*.js',
   ],
   theme: {
     extend: {
@@ -21,6 +21,5 @@ module.exports = {
   },
   plugins: [
     require("tw-elements/dist/plugin.cjs"),
-    // require('flowbite/plugin')
   ],
 };

@@ -3,23 +3,26 @@ import { logout } from "../utils/logout";
 
 const token = localStorage.getItem("token");
 const baseAPI = "https://api.utsavchatterjee.me/api/v1";
+export const domain = "https://api.utsavchatterjee.me";
 
 export const authorizedAxios = axios.create({
   baseURL: baseAPI,
   headers: {
     "Authorization": `Token ${token}`,
+    // "ngrok-skip-browser-warning": 69420,
     // Accept: "application/json",
     // "Content-type": "application/json",
-    // "Access-Control-Allow-Origin": '*'
+    // "Access-Control-Allow-Origin": '*',
   }
 });
 
 export const unauthorizedAxios = axios.create({
-  baseURL: baseAPI
+  baseURL: baseAPI,
   // headers: {
+  //   "ngrok-skip-browser-warning": 69420,
+  //   "Access-Control-Allow-Origin": '*',
   //   Accept: "application/json",
   //   "Content-type": "application/json",
-  //   "Access-Control-Allow-Origin": '*'
   // }
 });
 
@@ -31,6 +34,8 @@ authorizedAxios?.interceptors?.response?.use(res => {
 
   if (err.response.status === 401 || err.response.status === 403) {
     logout();
+  } else if (err.response.status === 500) {
+    console.log("500: INTERNAL_SERVER_ERROR");
   }
 
   throw err;
@@ -43,7 +48,7 @@ unauthorizedAxios?.interceptors?.response?.use(res => {
   console.log("unauthorizedAxios error:", err);
 
   if (err.response.status === 500) {
-    // internal server error
+    console.log("500: INTERNAL_SERVER_ERROR");
   }
 
   throw err;

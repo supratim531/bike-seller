@@ -116,8 +116,8 @@ function AddBike() {
 	}, []);
 
 	useEffect(() => {
-		initTE({ Ripple, Input });
-	}, []);
+		initTE({ Ripple, Input }, { allowReinits: true });
+	});
 
 	return (
 		<div className="px-4 md:px-6 lg:px-20 py-10 bg-slate-200">
@@ -126,6 +126,7 @@ function AddBike() {
 				<form onSubmit={addNewBike} className="py-4 sm:px-4 md:px-10 lg:px-20 space-y-6">
 					<div className="relative font-roboto" data-te-input-wrapper-init>
 						<input
+							data-te-toggle="tooltip"
 							value={bike.bike_model}
 							name="bike_model"
 							onChange={handleBikeChange}
@@ -164,7 +165,7 @@ function AddBike() {
 					<hr />
 					<div className="">
 						<div className="mb-2 text-lg font-semibold text-slate-600">Engine Information</div>
-						<div className="flex gap-10 w-full">
+						<div className="flex flex-col sm:flex-row gap-6 sm:gap-10 w-full">
 							<div className="relative font-roboto w-full" data-te-input-wrapper-init>
 								<input
 									value={bikeMeta.engine_cc}
@@ -194,7 +195,7 @@ function AddBike() {
 					<hr />
 					<div className="">
 						<div className="mb-2 text-lg font-semibold text-slate-600">Timeline</div>
-						<div className="flex gap-10 w-full">
+						<div className="flex flex-col sm:flex-row gap-6 sm:gap-10 w-full">
 							<div className="relative font-roboto w-full" data-te-input-wrapper-init>
 								<input
 									value={bikeMeta.year_of_model}
