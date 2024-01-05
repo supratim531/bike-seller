@@ -1,17 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { stringToHTML } from "../../utils/stringToHTML";
+import { authorizedAxios } from '../../axios/axios';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 import {
 	Ripple,
 	Input,
 	initTE,
 } from "tw-elements";
-import { authorizedAxios } from '../../axios/axios';
 
 function AddBike() {
 	const images = useRef(null);
+	const navigate = useNavigate();
 	const captureImage = useRef(null);
 	const captureImages = useRef(null);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const [bikeMeta, setBikeMeta] = useState({
 		asking_price: null,
@@ -30,8 +34,6 @@ function AddBike() {
 		name: "",
 		b64: ""
 	});
-	const [bikeImages, setBikeImages] = useState([]);
-
 	const [bike, setBike] = useState({
 		bike_model: "",
 		brand_name: "",
@@ -41,6 +43,7 @@ function AddBike() {
 		bike_meta: [],
 		bike_image: []
 	});
+	const [bikeImages, setBikeImages] = useState([]);
 
 	const fileToBase64 = (file) => {
 		let reader = new FileReader();
@@ -54,8 +57,13 @@ function AddBike() {
 			console.log("res:", res);
 			const data = res?.data;
 			console.log("data:", data);
+			setIsSubmitting(false);
+			toast.success("A new bike is added");
+			navigate('/');
 		} catch (err) {
 			console.log("err:", err);
+			setIsSubmitting(false);
+			toast.error("Something went wrong. Make sure that no field is left");
 		}
 	}
 
@@ -66,9 +74,8 @@ function AddBike() {
 		bike.bike_meta = [bikeMeta];
 		bike.bike_image = bikeImages;
 		console.log("Bike:", bike);
+		setIsSubmitting(true);
 		addBike(bike);
-		alert("A New Bike Posted");
-		window.location.reload();
 	}
 
 	const handleBikeChange = e => {
@@ -128,10 +135,9 @@ function AddBike() {
 				<form onSubmit={addNewBike} className="py-4 sm:px-4 md:px-10 lg:px-20 space-y-6">
 					<div className="relative font-roboto" data-te-input-wrapper-init>
 						<input
-							data-te-toggle="tooltip"
-							value={bike.bike_model}
 							name="bike_model"
-							onChange={handleBikeChange}
+							value={bike.bike_model}
+							onChange={e => setBike({ ...bike, bike_model: e.target.value.replaceAll(' ', '-') })}
 							type="text"
 							className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
 							placeholder="Bike Model"
@@ -142,8 +148,9 @@ function AddBike() {
 					</div>
 					<div className="relative font-roboto" data-te-input-wrapper-init>
 						<input
+							name="brand_name"
 							value={bike.brand_name}
-							onChange={e => setBike({ ...bike, brand_name: e.target.value })}
+							onChange={handleBikeChange}
 							type="text"
 							className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
 							placeholder="Brand Name"
@@ -154,8 +161,9 @@ function AddBike() {
 					</div>
 					<div className="relative font-roboto" data-te-input-wrapper-init>
 						<input
+							name="bike_name"
 							value={bike.bike_name}
-							onChange={e => setBike({ ...bike, bike_name: e.target.value })}
+							onChange={handleBikeChange}
 							type="text"
 							className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
 							placeholder="Bike Name"
@@ -321,7 +329,11 @@ function AddBike() {
 						<div ref={images} className="space-y-4"></div>
 					</div>
 					<div className="flex justify-center">
-						<button type="submit" className="px-6 py-2 uppercase rounded-md hover:scale-125 duration-300 font-medium text-white bg-blue-800">submit</button>
+						{
+							isSubmitting ?
+								<button type="button" disabled={true} className="px-6 py-2 uppercase rounded-md font-medium opacity-50 text-white bg-blue-800">posting...</button> :
+								<button type="submit" className="px-6 py-2 uppercase rounded-md hover:scale-125 duration-300 font-medium text-white bg-blue-800">submit</button>
+						}
 					</div>
 				</form>
 			</div>

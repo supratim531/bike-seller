@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { Outlet } from 'react-router-dom';
 import Footer from './components/main/Footer';
 import Navbar from './components/main/Navbar';
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <RootContext.Provider value={contextData}>
+      <div><Toaster /></div>
       <Navbar />
       <Outlet />
       <Footer />

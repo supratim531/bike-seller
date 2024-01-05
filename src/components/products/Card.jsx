@@ -5,6 +5,7 @@ import { formattedPrice } from "../../utils/formattedPrice";
 import ProductContext from "../../context/ProductContext";
 import RootContext from '../../context/RootContext';
 import { domain } from "../../axios/axios";
+import toast from 'react-hot-toast';
 
 function Card({ product }) {
   const context = useContext(ProductContext);
@@ -24,8 +25,10 @@ function Card({ product }) {
 
       context.setBikes(newBikes);
       context.setFilteredBikes(newBikes);
+      toast.success("Bike is deleted");
     } catch (err) {
       console.log("err:", err);
+      toast.success("Something went wrong. Internal server error");
     }
   }
 
@@ -44,7 +47,7 @@ function Card({ product }) {
   return (
     <Link to={`/bike?bike_model_id=${product?.bike_model_id}&bike_model=${product?.bike_model}&brand_name=${product?.brand_name}&bike_name=${product?.bike_name}`} className="group p-2 rounded outline outline-1 outline-slate-300 bg-white">
       <div className="h-52 mb-4">
-        <img src={`${domain}${product?.image_path}`} alt="" className="h-full w-full object-cover object-center duration-100 group-hover:opacity-75" />
+        <img src={`${domain}${product?.image_path.replaceAll(' ', '%20')}`} alt="" className="h-full w-full object-cover object-center duration-100 group-hover:opacity-75" />
       </div>
       <div className="px-2">
         <h3 className="text-xl font-bold text-green-950">₹ {formattedPrice(product?.bike_meta[0]?.asking_price)}</h3>
@@ -54,7 +57,7 @@ function Card({ product }) {
       {
         rootContext?.isLogin &&
         <div className="p-2 flex justify-between items-center">
-          <button onClick={(e) => { e.preventDefault(); alert("Update is detouched") }} className="px-3 py-2 rounded-sm outline outline-1 outline-slate-300 bg-gray-100">
+          <button onClick={(e) => { e.preventDefault(); alert("Under Development") }} className="px-3 py-2 rounded-sm outline outline-1 outline-slate-300 bg-gray-100">
             <i className="fa-solid fa-pen text-2xl text-blue-600"></i>
           </button>
           <button onClick={deleteABike} className="px-3 py-2 rounded-sm outline outline-1 outline-slate-300 bg-gray-100">
