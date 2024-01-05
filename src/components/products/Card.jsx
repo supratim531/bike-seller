@@ -23,6 +23,7 @@ function Card({ product }) {
       });
 
       context.setBikes(newBikes);
+      context.setFilteredBikes(newBikes);
     } catch (err) {
       console.log("err:", err);
     }

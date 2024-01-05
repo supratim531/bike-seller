@@ -41,7 +41,8 @@ function Products() {
   }, [searchBikes]);
 
   const contextData = {
-    bikes, setBikes
+    bikes, setBikes,
+    filteredBikes, setFilteredBikes
   };
 
   return (
@@ -53,9 +54,9 @@ function Products() {
         isLoading ? <Loader /> : <>
           <div className="">
             {
-              (filteredBikes.length === 0) &&
+              (filteredBikes.length === 0 && bikes.length !== 0) &&
               <div className="mx-auto max-w-2xl pt-2 pb-6 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                <div className="py-1 break-all bg-gray-50">No result found for "<b>{searchBikes}</b>"</div>
+                <div className="p-1 break-all bg-gray-50">No result found for "<b>{searchBikes}</b>"</div>
               </div>
             }
             <div className="mx-auto max-w-2xl pt-2 pb-6 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
