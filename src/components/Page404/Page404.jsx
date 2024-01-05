@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import BrowserTitleBar from "../BrowserTitleBar";
 import './Page404.css';
 
 function Page404() {
@@ -7,7 +8,7 @@ function Page404() {
 
   return (
     <>
-      {/* <BrowserTitleName title="Page Not Found" /> */}
+      <BrowserTitleBar title="Page Not Found" />
 
       <div className="container-404">
         <div className="four1">

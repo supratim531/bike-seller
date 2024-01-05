@@ -4,6 +4,7 @@ import Card from '../components/products/Card';
 import Search from '../components/products/Search';
 import Loader from '../components/main/Loader';
 import ProductContext from '../context/ProductContext';
+import BrowserTitleBar from '../components/BrowserTitleBar';
 
 function Products() {
   const [bikes, setBikes] = useState([]);
@@ -46,32 +47,36 @@ function Products() {
   };
 
   return (
-    <ProductContext.Provider value={contextData}>
-      <div className="mx-auto max-w-2xl py-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        <Search setSearchBikes={setSearchBikes} />
-      </div>
-      {
-        isLoading ? <Loader /> : <>
-          <div className="">
-            {
-              (filteredBikes.length === 0 && bikes.length !== 0) &&
+    <>
+      <BrowserTitleBar title="Marketplace For Second Hand Bike" />
+
+      <ProductContext.Provider value={contextData}>
+        <div className="mx-auto max-w-2xl py-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <Search setSearchBikes={setSearchBikes} />
+        </div>
+        {
+          isLoading ? <Loader /> : <>
+            <div className="">
+              {
+                (filteredBikes.length === 0 && bikes.length !== 0) &&
+                <div className="mx-auto max-w-2xl pt-2 pb-6 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+                  <div className="p-1 break-all bg-gray-50">No result found for "<b>{searchBikes}</b>"</div>
+                </div>
+              }
               <div className="mx-auto max-w-2xl pt-2 pb-6 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                <div className="p-1 break-all bg-gray-50">No result found for "<b>{searchBikes}</b>"</div>
-              </div>
-            }
-            <div className="mx-auto max-w-2xl pt-2 pb-6 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-              <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-                {
-                  filteredBikes.map(bike => (
-                    <Card product={bike} />
-                  ))
-                }
+                <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+                  {
+                    filteredBikes.map(bike => (
+                      <Card product={bike} />
+                    ))
+                  }
+                </div>
               </div>
             </div>
-          </div>
-        </>
-      }
-    </ProductContext.Provider>
+          </>
+        }
+      </ProductContext.Provider>
+    </>
   );
 }
 

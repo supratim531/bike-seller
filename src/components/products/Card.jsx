@@ -47,7 +47,7 @@ function Card({ product }) {
   return (
     <Link to={`/bike?bike_model_id=${product?.bike_model_id}&bike_model=${product?.bike_model}&brand_name=${product?.brand_name}&bike_name=${product?.bike_name}`} className="group p-2 rounded outline outline-1 outline-slate-300 bg-white">
       <div className="h-52 mb-4">
-        <img src={`${domain}${product?.image_path.replaceAll(' ', '%20')}`} alt="" className="h-full w-full object-cover object-center duration-100 group-hover:opacity-75" />
+        <img src={`${domain + product?.image_path}`} alt="" className="h-full w-full object-cover object-center duration-100 group-hover:opacity-75" />
       </div>
       <div className="px-2">
         <h3 className="text-xl font-bold text-green-950">₹ {formattedPrice(product?.bike_meta[0]?.asking_price)}</h3>

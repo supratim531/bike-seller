@@ -7,7 +7,7 @@ function BikeCarousel({ bikeImages }) {
       <Carousel>
         {
           bikeImages.map(e =>
-            <div style={{ backgroundImage: `url(${domain}${e?.image_path.replaceAll(' ', '%20')})` }} key={e?.bikeimage_id} className="w-full h-full bg-contain bg-center bg-no-repeat bg-black"></div>
+            <div style={{ backgroundImage: `url(${domain + e?.image_path})` }} key={e?.bikeimage_id} className="w-full h-full bg-contain bg-center bg-no-repeat bg-black"></div>
           )
         }
       </Carousel>
