@@ -190,6 +190,7 @@ function AddBike() {
 									<input
 										value={bikeMeta.engine_cc}
 										onChange={e => setBikeMeta({ ...bikeMeta, engine_cc: e.target.value })}
+										onWheel={e => e.target.blur()}
 										type="number"
 										className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
 										placeholder="CC"
@@ -220,6 +221,7 @@ function AddBike() {
 									<input
 										value={bikeMeta.year_of_model}
 										onChange={e => setBikeMeta({ ...bikeMeta, year_of_model: e.target.value })}
+										onWheel={e => e.target.blur()}
 										type="number"
 										className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
 										placeholder="Year of Model"
@@ -232,7 +234,8 @@ function AddBike() {
 									<input
 										value={bikeMeta.buy_year}
 										onChange={e => setBikeMeta({ ...bikeMeta, buy_year: e.target.value })}
-										type="text"
+										onWheel={e => e.target.blur()}
+										type="number"
 										className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
 										placeholder="Year of Purchase"
 									/>
@@ -247,6 +250,7 @@ function AddBike() {
 							<input
 								value={bikeMeta.kms_run}
 								onChange={e => setBikeMeta({ ...bikeMeta, kms_run: e.target.value })}
+								onWheel={e => e.target.blur()}
 								type="number"
 								className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
 								placeholder="Kilometers Covered"
@@ -259,6 +263,7 @@ function AddBike() {
 							<input
 								value={bikeMeta.mileage}
 								onChange={e => setBikeMeta({ ...bikeMeta, mileage: e.target.value })}
+								onWheel={e => e.target.blur()}
 								type="number"
 								className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
 								placeholder="Mileage"
@@ -271,6 +276,7 @@ function AddBike() {
 							<input
 								value={bikeMeta.available}
 								onChange={e => setBikeMeta({ ...bikeMeta, available: e.target.value })}
+								onWheel={e => e.target.blur()}
 								type="number"
 								className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
 								placeholder="Available Quantity"
@@ -283,6 +289,7 @@ function AddBike() {
 							<input
 								value={bikeMeta.no_of_owners}
 								onChange={e => setBikeMeta({ ...bikeMeta, no_of_owners: e.target.value })}
+								onWheel={e => e.target.blur()}
 								type="number"
 								className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
 								placeholder="Number of Owners"
@@ -307,6 +314,7 @@ function AddBike() {
 							<input
 								value={bikeMeta.asking_price}
 								onChange={e => setBikeMeta({ ...bikeMeta, asking_price: e.target.value })}
+								onWheel={e => e.target.blur()}
 								type="number"
 								className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
 								placeholder="Asking Price"
