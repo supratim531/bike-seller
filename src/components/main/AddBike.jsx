@@ -1,33 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { stringToHTML } from "../../utils/stringToHTML";
+import React, { useEffect, useState } from 'react';
 import { authorizedAxios } from '../../axios/axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import Resizer from "react-image-file-resizer";
+import BrowserTitleBar from '../BrowserTitleBar';
 
 import {
 	Ripple,
 	Input,
 	initTE,
 } from "tw-elements";
-import BrowserTitleBar from '../BrowserTitleBar';
 
 function AddBike() {
-	const images = useRef(null);
 	const navigate = useNavigate();
-	const captureImage = useRef(null);
-	const captureImages = useRef(null);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const [bikeMeta, setBikeMeta] = useState({
-		asking_price: null,
-		year_of_model: null,
-		engine_cc: null,
+		asking_price: "",
+		year_of_model: "",
+		engine_cc: "",
 		engine_type: "",
-		kms_run: null,
-		no_of_owners: null,
-		available: null,
-		mileage: null,
-		buy_year: null,
+		kms_run: "",
+		no_of_owners: "",
+		available: "",
+		mileage: "",
+		buy_year: "",
 		color: "",
 		details: ""
 	});
@@ -46,12 +43,6 @@ function AddBike() {
 	});
 	const [bikeImages, setBikeImages] = useState([]);
 
-	const fileToBase64 = (file) => {
-		let reader = new FileReader();
-		reader.readAsDataURL(file);
-		return reader;
-	}
-
 	const addBike = async payload => {
 		try {
 			const res = await authorizedAxios.post("/admins/upload/", payload);
@@ -65,7 +56,7 @@ function AddBike() {
 			console.log("err:", err);
 			console.log("err res:", err?.response?.data);
 			setIsSubmitting(false);
-			toast.error(err?.response?.data?.message);
+			toast.error("Something went owner. Make sure no field is left (Contact +91 62914 62153)");
 		}
 	}
 
@@ -76,13 +67,8 @@ function AddBike() {
 		bike.bike_meta = [bikeMeta];
 		bike.bike_image = bikeImages;
 		console.log("Bike:", bike);
-
-		const reply = window.confirm(`${JSON.stringify(bike)}\n\nAre you confirm to add this?`);
-
-		if (reply) {
-			setIsSubmitting(true);
-			addBike(bike);
-		}
+		setIsSubmitting(true);
+		addBike(bike);
 	}
 
 	const handleBikeChange = e => {
@@ -96,40 +82,81 @@ function AddBike() {
 		});
 	}
 
-	useEffect(() => {
-		let imagesContainer = images.current;
-		let captureImageController = captureImage.current;
-		let captureImagesController = captureImages.current;
+	const discardImage = (timestamp) => {
+		const originalBikeImages = [...bikeImages];
 
-		captureImageController.addEventListener('change', (ev) => {
-			if (captureImageController.files[0]?.type.indexOf("image/") > -1) {
-				const reader = fileToBase64(captureImageController.files[0]);
-				reader.onload = () => {
-					let image = captureImageController.files[0];
-					console.log("DEKHTE HBE SINGLE:", captureImageController.files);
-					// console.log("SINGLE FILE:", captureImageController.files[0], reader.result, bike);
-					setBikeImage({ name: image.name, b64: reader.result });
-				}
-			}
+		const updatedBikeImages = originalBikeImages.filter(e => {
+			return e.timestamp !== timestamp;
 		});
 
-		captureImagesController.addEventListener('change', (ev) => {
-			if (captureImagesController.files[0]?.type.indexOf("image/") > -1) {
-				const element = `
-				<p class="bg-black"><img src="${window.URL.createObjectURL(captureImagesController.files[0])}" class="h-52 w-full object-contain" /></p>
-				`;
-				imagesContainer.appendChild(stringToHTML(element));
+		setBikeImages(updatedBikeImages);
+	}
 
-				const reader = fileToBase64(captureImagesController.files[0]);
-				reader.onload = () => {
-					let image = captureImagesController.files[0];
-					console.log("DEKHTE HBE MULTIPLE:", captureImagesController.files);
-					// console.log("MULTIPLE FILES:", captureImagesController.files[0], reader.result, bike);
-					setBikeImages(e => [...e, { image_name: image.name, image_b64: reader.result }])
+	const imageFileChangedHandler = event => {
+		let fileInput = false;
+
+		if (event.target.files[0]) {
+			fileInput = true;
+		}
+
+		if (fileInput) {
+			try {
+				Resizer.imageFileResizer(
+					event.target.files[0],
+					300,
+					300,
+					"JPEG",
+					100,
+					0,
+					(uri) => {
+						console.log("URI:", uri);
+						setBikeImage({ ...bikeImage, b64: uri, name: event.target.files[0].name.replaceAll(' ', '-').replace(/[^a-zA-Z0-9.]/g, '') });
+					},
+					"base64",
+					200,
+					200
+				);
+			} catch (err) {
+				console.log(err);
+				toast.error("Unable to compress image. Try again");
+			}
+		}
+	};
+
+	const imageFilesChangedHandler = event => {
+		if (bikeImages.length < 4) {
+			let fileInput = false;
+
+			if (event.target.files[0]) {
+				fileInput = true;
+			}
+
+			if (fileInput) {
+				try {
+					Resizer.imageFileResizer(
+						event.target.files[0],
+						300,
+						300,
+						"JPEG",
+						100,
+						0,
+						(uri) => {
+							console.log("Multiple URI:", uri);
+							setBikeImages(e => [...e, { timestamp: new Date().getTime(), image_name: event.target.files[0].name.replaceAll(' ', '-').replace(/[^a-zA-Z0-9.]/g, ''), image_b64: uri }]);
+						},
+						"base64",
+						200,
+						200
+					);
+				} catch (err) {
+					console.log(err);
+					toast.error("Unable to compress image. Try again");
 				}
 			}
-		});
-	}, []);
+		} else {
+			toast.error("You can upload upto 4 images")
+		}
+	};
 
 	useEffect(() => {
 		initTE({ Ripple, Input }, { allowReinits: true });
@@ -334,17 +361,29 @@ function AddBike() {
 							></textarea>
 						</div>
 						<div className="">
-							<h2 className="mb-2 text-lg font-semibold text-slate-600">Profile Image:</h2>
+							<h2 className="mb-2 text-lg font-semibold text-slate-600">Profile Image (Testing):</h2>
 							<div>
-								<input type="file" ref={captureImage} accept="image/*" />
+								<input className="mb-2" type="file" onChange={imageFileChangedHandler} />
+								<div><img src={bikeImage.b64} /></div>
 							</div>
 						</div>
 						<div className="">
-							<h2 className="mb-2 text-lg font-semibold text-slate-600">Add Slide Images:</h2>
-							<div className="mb-2">
-								<input type="file" ref={captureImages} accept="image/*" />
+							<h2 className="mb-2 text-lg font-semibold text-slate-600">Slide Images (Testing):</h2>
+							<div>
+								<input className="mb-2" type="file" onChange={imageFilesChangedHandler} />
+								<div className="space-y-2">
+									{
+										bikeImages?.map(image =>
+											<div className="relative bg-black">
+												<div onClick={() => discardImage(image.timestamp)} className="cursor-pointer absolute flex justify-center items-center top-2 right-2 h-6 w-6 rounded-full bg-white/50">
+													<i className="fa-solid fa-xmark font-bold"></i>
+												</div>
+												<img className="w-full h-52 object-contain object-center" src={image.image_b64} />
+											</div>
+										)
+									}
+								</div>
 							</div>
-							<div ref={images} className="space-y-4"></div>
 						</div>
 						<div className="flex justify-center">
 							{

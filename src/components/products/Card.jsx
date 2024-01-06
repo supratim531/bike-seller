@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { authorizedAxios } from '../../axios/axios';
 import { formattedPrice } from "../../utils/formattedPrice";
@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 function Card({ product }) {
   const context = useContext(ProductContext);
   const rootContext = useContext(RootContext);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const deleteBike = async payload => {
     try {
@@ -25,9 +26,11 @@ function Card({ product }) {
 
       context.setBikes(newBikes);
       context.setFilteredBikes(newBikes);
+      setIsDeleting(false);
       toast.success("Bike is deleted");
     } catch (err) {
       console.log("err:", err);
+      setIsDeleting(false);
       toast.success("Something went wrong. Internal server error");
     }
   }
@@ -40,6 +43,7 @@ function Card({ product }) {
     const reply = window.confirm("Are you confirm to delete this product?");
 
     if (reply) {
+      setIsDeleting(true);
       deleteBike(payload);
     }
   }
@@ -60,9 +64,16 @@ function Card({ product }) {
           <button onClick={(e) => { e.preventDefault(); alert("Under Development") }} className="px-3 py-2 rounded-sm outline outline-1 outline-slate-300 bg-gray-100">
             <i className="fa-solid fa-pen text-2xl text-blue-600"></i>
           </button>
-          <button onClick={deleteABike} className="px-3 py-2 rounded-sm outline outline-1 outline-slate-300 bg-gray-100">
-            <i className="fa-solid fa-trash text-2xl text-red-600"></i>
-          </button>
+          {
+            isDeleting ?
+              <div className="flex flex-col items-center">
+                <div className="mr-1.5 delete-spinner"></div>
+                <div className="text-[0.7rem] italic text-red-600">Deleting...</div>
+              </div> :
+              <button onClick={deleteABike} className="px-3 py-2 rounded-sm outline outline-1 outline-slate-300 bg-gray-100">
+                <i className="fa-solid fa-trash text-2xl text-red-600"></i>
+              </button>
+          }
         </div>
       }
     </Link>
