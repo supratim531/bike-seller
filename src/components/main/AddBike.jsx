@@ -63,8 +63,9 @@ function AddBike() {
 			navigate('/');
 		} catch (err) {
 			console.log("err:", err);
+			console.log("err res:", err?.response?.data);
 			setIsSubmitting(false);
-			toast.error("Something went wrong. Make sure that no field is left");
+			toast.error(err?.response?.data?.message);
 		}
 	}
 
@@ -75,8 +76,13 @@ function AddBike() {
 		bike.bike_meta = [bikeMeta];
 		bike.bike_image = bikeImages;
 		console.log("Bike:", bike);
-		setIsSubmitting(true);
-		addBike(bike);
+
+		const reply = window.confirm(`${JSON.stringify(bike)}\n\nAre you confirm to add this?`);
+
+		if (reply) {
+			setIsSubmitting(true);
+			addBike(bike);
+		}
 	}
 
 	const handleBikeChange = e => {
