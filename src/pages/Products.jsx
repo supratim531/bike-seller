@@ -63,6 +63,10 @@ function Products() {
                   <div className="p-1 break-all bg-gray-50">No result found for "<b>{searchBikes}</b>"</div>
                 </div>
               }
+              {
+                (filteredBikes.length === 0 && bikes.length === 0) &&
+                <div className="h-[60vh] flex justify-center items-center text-4xl font-bold text-gray-400/40">No Bikes Found 😩</div>
+              }
               <div className="mx-auto max-w-2xl pt-2 pb-6 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                   {

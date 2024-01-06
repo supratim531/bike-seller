@@ -2,7 +2,7 @@ import React from 'react';
 
 function Search({ setSearchBikes }) {
   return (
-    <form className="">
+    <div>
       <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only">
         Search
       </label>
@@ -36,7 +36,7 @@ function Search({ setSearchBikes }) {
           Search
         </button> */}
       </div>
-    </form>
+    </div>
   );
 }
 

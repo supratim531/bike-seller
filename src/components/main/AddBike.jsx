@@ -13,8 +13,21 @@ import {
 
 function AddBike() {
 	const navigate = useNavigate();
-	const [isSubmitting, setIsSubmitting] = useState(false);
 
+	const [bikeImage, setBikeImage] = useState({
+		b64: "",
+		name: ""
+	});
+	const [bikeImages, setBikeImages] = useState([]);
+	const [bike, setBike] = useState({
+		bike_model: "",
+		brand_name: "",
+		bike_name: "",
+		image_name: "",
+		image_b64: "",
+		bike_meta: [],
+		bike_image: []
+	});
 	const [bikeMeta, setBikeMeta] = useState({
 		asking_price: "",
 		year_of_model: "",
@@ -28,20 +41,7 @@ function AddBike() {
 		color: "",
 		details: ""
 	});
-	const [bikeImage, setBikeImage] = useState({
-		name: "",
-		b64: ""
-	});
-	const [bike, setBike] = useState({
-		bike_model: "",
-		brand_name: "",
-		bike_name: "",
-		image_name: "",
-		image_b64: "",
-		bike_meta: [],
-		bike_image: []
-	});
-	const [bikeImages, setBikeImages] = useState([]);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const addBike = async payload => {
 		try {
@@ -62,10 +62,10 @@ function AddBike() {
 
 	const addNewBike = (e) => {
 		e.preventDefault();
-		bike.image_name = bikeImage.name;
-		bike.image_b64 = bikeImage.b64;
 		bike.bike_meta = [bikeMeta];
 		bike.bike_image = bikeImages;
+		bike.image_b64 = bikeImage.b64;
+		bike.image_name = bikeImage.name;
 		console.log("Bike:", bike);
 		setIsSubmitting(true);
 		addBike(bike);
@@ -85,11 +85,11 @@ function AddBike() {
 	const discardImage = (timestamp) => {
 		const originalBikeImages = [...bikeImages];
 
-		const updatedBikeImages = originalBikeImages.filter(e => {
+		const newUpdatedBikeImages = originalBikeImages.filter(e => {
 			return e.timestamp !== timestamp;
 		});
 
-		setBikeImages(updatedBikeImages);
+		setBikeImages(newUpdatedBikeImages);
 	}
 
 	const imageFileChangedHandler = event => {
@@ -154,7 +154,7 @@ function AddBike() {
 				}
 			}
 		} else {
-			toast.error("You can upload upto 4 images")
+			toast.error("You can upload upto 4 images");
 		}
 	};
 
@@ -174,7 +174,7 @@ function AddBike() {
 							<input
 								name="bike_model"
 								value={bike.bike_model}
-								onChange={e => setBike({ ...bike, bike_model: e.target.value.replaceAll(' ', '-') })}
+								onChange={e => setBike({ ...bike, bike_model: e.target.value.toUpperCase().replaceAll(' ', '-') })}
 								type="text"
 								className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
 								placeholder="Bike Model"
@@ -361,14 +361,14 @@ function AddBike() {
 							></textarea>
 						</div>
 						<div className="">
-							<h2 className="mb-2 text-lg font-semibold text-slate-600">Profile Image (Testing):</h2>
+							<h2 className="mb-2 text-lg font-semibold text-slate-600">Add Profile Image</h2>
 							<div>
 								<input className="mb-2" type="file" onChange={imageFileChangedHandler} />
 								<div><img src={bikeImage.b64} /></div>
 							</div>
 						</div>
 						<div className="">
-							<h2 className="mb-2 text-lg font-semibold text-slate-600">Slide Images (Testing):</h2>
+							<h2 className="mb-2 text-lg font-semibold text-slate-600">Add Slide Images</h2>
 							<div>
 								<input className="mb-2" type="file" onChange={imageFilesChangedHandler} />
 								<div className="space-y-2">
