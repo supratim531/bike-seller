@@ -57,7 +57,7 @@ function Card({ product }) {
             <img src={noImage} alt="" className="h-full w-full object-cover object-center duration-100 group-hover:opacity-75" /> :
             <div className="h-full w-full object-cover object-center duration-100 group-hover:opacity-75">
               <TransformWrapper defaultScale={1}>
-                <TransformComponent contentClass='h-full w-full' wrapperStyle={{ height: "100%", width: "100%", backgroundColor: "rgb(224, 224, 224)" }}>
+                <TransformComponent contentStyle={{ height: "100%", width: "100%" }} wrapperStyle={{ height: "100%", width: "100%", backgroundColor: "rgb(224, 224, 224)" }}>
                   <img src={`${domain + product?.image_path}`} alt="" className="h-full w-full object-contain object-center" />
                 </TransformComponent>
               </TransformWrapper>
