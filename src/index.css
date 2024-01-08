@@ -6,6 +6,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.wrapper-class {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(224, 224, 224);
+}
+
 .loading-spinner {
   width: 50px;
   height: 50px;
