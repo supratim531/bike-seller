@@ -232,10 +232,10 @@ function AddBike() {
 										onChange={e => setBikeMeta({ ...bikeMeta, engine_type: e.target.value })}
 										type="text"
 										className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
-										placeholder="Type"
+										placeholder="Generation"
 									/>
 									<label className="font-roboto pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none">
-										Type <b className="text-red-600">*</b>
+										Generation <b className="text-red-600">*</b>
 									</label>
 								</div>
 							</div>
@@ -244,30 +244,30 @@ function AddBike() {
 						<div className="">
 							<div className="mb-2 text-lg font-semibold text-slate-600">Timeline</div>
 							<div className="flex flex-col sm:flex-row gap-6 sm:gap-10 w-full">
-								<div className="relative font-roboto w-full" data-te-input-wrapper-init>
+								<div className="hidden relative font-roboto w-full" data-te-input-wrapper-init>
 									<input
 										value={bikeMeta.year_of_model}
-										onChange={e => setBikeMeta({ ...bikeMeta, year_of_model: e.target.value })}
+										onChange={e => setBikeMeta({ ...bikeMeta, year_of_model: bikeMeta.year_of_model })}
 										onWheel={e => e.target.blur()}
 										type="number"
 										className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
-										placeholder="Year of Model"
+										placeholder="Manufacture Year"
 									/>
 									<label className="font-roboto pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none">
-										Year of Model <b className="text-red-600">*</b>
+										Manufacture Year <b className="text-red-600">*</b>
 									</label>
 								</div>
 								<div className="relative font-roboto w-full" data-te-input-wrapper-init>
 									<input
 										value={bikeMeta.buy_year}
-										onChange={e => setBikeMeta({ ...bikeMeta, buy_year: e.target.value })}
+										onChange={e => setBikeMeta({ ...bikeMeta, buy_year: e.target.value, year_of_model: e.target.value })}
 										onWheel={e => e.target.blur()}
 										type="number"
 										className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
-										placeholder="Year of Purchase"
+										placeholder="Year of Registration"
 									/>
 									<label className="font-roboto pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none">
-										Year of Purchase <b className="text-red-600">*</b>
+										Year of Registration <b className="text-red-600">*</b>
 									</label>
 								</div>
 							</div>
@@ -293,10 +293,10 @@ function AddBike() {
 								onWheel={e => e.target.blur()}
 								type="number"
 								className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] md:py-[0.01rem] leading-[2.6] lg:leading-[3.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 font-medium text-blue-800"
-								placeholder="Mileage"
+								placeholder="Average Mileage"
 							/>
 							<label className="font-roboto pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none">
-								Mileage <b className="text-red-600">*</b>
+								Average Mileage <b className="text-red-600">*</b>
 							</label>
 						</div>
 						<div className="relative font-roboto" data-te-input-wrapper-init>

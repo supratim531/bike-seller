@@ -28,8 +28,8 @@ function Search({ setSearchBikes }) {
           type="search"
           id="default-search"
           onChange={e => setSearchBikes(e.target.value)}
-          className="block w-full p-4 ps-10 rounded text-sm outline outline-1 outline-slate-400 focus:outline-2 focus:outline-blue-500"
-          placeholder="Search Bikes, Brands..."
+          className="placeholder:text-blue-300 block w-full p-4 ps-10 rounded text-sm outline outline-1 outline-slate-400 focus:outline-2 focus:outline-blue-500"
+          placeholder="Search bike through bike name, brand name, generation type, color, average mileage..."
           required=""
         />
         {/* <button type="submit" className="absolute px-4 py-2 end-2.5 bottom-2 font-medium rounded text-sm focus:ring-4 focus:outline-none focus:ring-blue-300 text-white bg-blue-700 hover:bg-blue-800">

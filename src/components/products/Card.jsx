@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { authorizedAxios } from '../../axios/axios';
+import { domain, authorizedAxios } from '../../axios/axios';
 import { formattedPrice } from "../../utils/formattedPrice";
-import ProductContext from "../../context/ProductContext";
-import RootContext from '../../context/RootContext';
-import { domain } from "../../axios/axios";
-import noImage from "../../assets/no-image-3.jpg";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import toast from 'react-hot-toast';
+import noImage from "../../assets/no-image.jpg";
+import RootContext from '../../context/RootContext';
+import ProductContext from "../../context/ProductContext";
 
 function Card({ product }) {
   const context = useContext(ProductContext);
@@ -55,7 +55,13 @@ function Card({ product }) {
         {
           product?.image_path === "" ?
             <img src={noImage} alt="" className="h-full w-full object-cover object-center duration-100 group-hover:opacity-75" /> :
-            <img src={`${domain + product?.image_path}`} alt="" className="h-full w-full object-cover object-center duration-100 group-hover:opacity-75" />
+            <div className="flex justify-center bg-gray-200">
+              <TransformWrapper defaultScale={1} className="w-full">
+                <TransformComponent className="w-full">
+                  <img onClick={e => e.preventDefault()} src={`${domain + product?.image_path}`} alt="" className="h-full w-full object-cover object-center duration-100 group-hover:opacity-75" />
+                </TransformComponent>
+              </TransformWrapper>
+            </div>
         }
       </div>
       <div className="px-2">

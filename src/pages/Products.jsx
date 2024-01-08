@@ -28,7 +28,7 @@ function Products() {
 
   const filterBikes = () => {
     const searchedBikes = bikes.filter(bike => {
-      return bike.bike_model.toLowerCase().match(searchBikes.toLowerCase().trim()) || bike.brand_name.toLowerCase().match(searchBikes.toLowerCase().trim()) || bike.bike_name.toLowerCase().match(searchBikes.toLowerCase().trim());
+      return bike.bike_model.toLowerCase().match(searchBikes.toLowerCase().trim()) || bike.brand_name.toLowerCase().match(searchBikes.toLowerCase().trim()) || bike.bike_name.toLowerCase().match(searchBikes.toLowerCase().trim()) || bike.bike_meta[0].engine_type.toLowerCase().match(searchBikes.toLowerCase().trim()) || bike.bike_meta[0].color.toLowerCase().match(searchBikes.toLowerCase().trim()) || bike.bike_meta[0].mileage.toLowerCase().match(searchBikes.toLowerCase().trim());
     });
     setFilteredBikes(searchedBikes);
   }
