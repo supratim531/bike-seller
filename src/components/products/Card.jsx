@@ -55,10 +55,10 @@ function Card({ product }) {
         {
           product?.image_path === "" ?
             <img src={noImage} alt="" className="h-full w-full object-cover object-center duration-100 group-hover:opacity-75" /> :
-            <div className="flex justify-center bg-gray-200">
-              <TransformWrapper defaultScale={1} className="w-full">
-                <TransformComponent className="w-full">
-                  <img onClick={e => e.preventDefault()} src={`${domain + product?.image_path}`} alt="" className="h-full w-full object-cover object-center duration-100 group-hover:opacity-75" />
+            <div className="h-full w-full">
+              <TransformWrapper defaultScale={1}>
+                <TransformComponent wrapperClass='h-full w-full bg-gray-200' contentClass='h-full w-full'>
+                  <img src={`${domain + product?.image_path}`} alt="" className="h-full w-full object-contain object-center" />
                 </TransformComponent>
               </TransformWrapper>
             </div>
