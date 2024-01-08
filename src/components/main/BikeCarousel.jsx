@@ -20,7 +20,7 @@ function BikeCarousel({ bikeImages }) {
               bikeImages.map(e =>
                 <div className="h-full w-full">
                   <TransformWrapper defaultScale={1}>
-                    <TransformComponent wrapperClass="wrapper-class" contentClass='h-full w-full'>
+                    <TransformComponent contentClass='h-full w-full' wrapperStyle={{ height: "100%", width: "100%", backgroundColor: "rgb(224, 224, 224)" }}>
                       <img src={`${domain + e?.image_path}`} alt="" className="h-full w-full object-contain object-center" />
                     </TransformComponent>
                   </TransformWrapper>
