@@ -12,7 +12,7 @@ function ProductsTest() {
   const [filteredBikes, setFilteredBikes] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [totalBikes, setTotalBikes] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(2);
+  const [itemsPerPage, setItemsPerPage] = useState(8);
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [searchBikes, setSearchBikes] = useState("");
@@ -61,8 +61,6 @@ function ProductsTest() {
 
   const contextData = {
     getBikes, itemsPerPage, currentPageNumber
-    // bikes, setBikes,
-    // filteredBikes, setFilteredBikes
   };
 
   return (
@@ -104,15 +102,16 @@ function ProductsTest() {
         breakClassName="px-2 flex flex-wrap items-center text-white bg-[#51bae8]"
         pageClassName="flex items-center text-white bg-[#51bae8]"
         pageLinkClassName="px-3"
-        nextClassName="px-10 py-3 bg-[#51bae8]"
-        previousClassName="px-10 py-3 bg-[#51bae8]"
-        className="flex justify-center mt-4"
+        nextClassName="px-3 py-3 rounded-r-full bg-[#51bae8]"
+        previousClassName="px-3 py-3 rounded-l-full bg-[#51bae8]"
+        className="flex justify-center my-6"
         breakLabel="..."
         nextLabel={<i className="fa-solid fa-angle-right text-lg text-[#2184c3]"></i>}
         onPageChange={handlePageClick}
         pageCount={pageCount}
         previousLabel={<i className="fa-solid fa-angle-left text-lg text-[#2184c3]"></i>}
         renderOnZeroPageCount={null}
+        pageRangeDisplayed={0}
       />
     </>
   );

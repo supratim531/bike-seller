@@ -20,13 +20,6 @@ function Card({ product }) {
       const data = res?.data;
       console.log("data:", data);
 
-      // const bikes = [...productContext.bikes];
-      // const newBikes = bikes.filter(bike => {
-      //   return bike.bike_model_id !== payload.model_id
-      // });
-      // productContext.setBikes(newBikes);
-      // productContext.setFilteredBikes(newBikes);
-
       productContext.getBikes(productContext.currentPageNumber, productContext.itemsPerPage);
       setIsDeleting(false);
       toast.success("Bike is deleted");
