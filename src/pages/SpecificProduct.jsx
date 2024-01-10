@@ -71,8 +71,8 @@ function SpeceficProduct() {
                 <div className="md:mx-2 md:flex-1">
                   <div className="p-2 rounded outline outline-1 outline-slate-300 bg-white">
                     <h2 className="text-3xl font-bold text-green-950 mb-2">₹ {formattedPrice(bike?.bike_meta[0]?.asking_price)}</h2>
-                    <p className="text-gray-600">{bike?.bike_meta[0]?.year_of_model} - {formattedPrice(bike?.bike_meta[0]?.kms_run)} km</p>
-                    <p className="mb-2 text-gray-600">{`${bike?.bike_meta[0]?.engine_cc} CC bike, ${bike?.bike_meta[0]?.year_of_model} model and it's covered ${formattedPrice(bike?.bike_meta[0]?.kms_run)} KM upto now, gives ${bike?.bike_meta[0]?.mileage} mileage`}</p>
+                    <p className="text-gray-600">{bike?.bike_meta[0]?.buy_year} - {formattedPrice(bike?.bike_meta[0]?.kms_run)} km</p>
+                    <p className="mb-2 text-gray-600">{`${bike?.bike_meta[0]?.engine_cc} CC bike, ${bike?.bike_meta[0]?.buy_year} model and it's covered ${formattedPrice(bike?.bike_meta[0]?.kms_run)} KM upto now, gives ${bike?.bike_meta[0]?.mileage} mileage`}</p>
                     <div className="flex flex-wrap gap-2">
                       <div className>
                         <span className="mr-1 font-bold text-gray-700">Brand:</span>

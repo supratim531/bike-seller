@@ -2,8 +2,8 @@ import axios from 'axios';
 import { logout } from "../utils/logout";
 
 const token = localStorage.getItem("token");
-const baseAPI = "https://api.utsavchatterjee.me/api/v1";
-export const domain = "https://api.utsavchatterjee.me";
+const baseAPI = "https://api.sautoservice.in/api/v1";
+export const domain = "https://api.sautoservice.in";
 
 export const authorizedAxios = axios.create({
   baseURL: baseAPI,

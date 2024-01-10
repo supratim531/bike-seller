@@ -9,7 +9,7 @@ import RootContext from '../../context/RootContext';
 import ProductContext from "../../context/ProductContext";
 
 function Card({ product }) {
-  const context = useContext(ProductContext);
+  const productContext = useContext(ProductContext);
   const rootContext = useContext(RootContext);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -19,20 +19,21 @@ function Card({ product }) {
       console.log("res:", res);
       const data = res?.data;
       console.log("data:", data);
-      const bikes = [...context.bikes];
 
-      const newBikes = bikes.filter(bike => {
-        return bike.bike_model_id !== payload.model_id
-      });
+      // const bikes = [...productContext.bikes];
+      // const newBikes = bikes.filter(bike => {
+      //   return bike.bike_model_id !== payload.model_id
+      // });
+      // productContext.setBikes(newBikes);
+      // productContext.setFilteredBikes(newBikes);
 
-      context.setBikes(newBikes);
-      context.setFilteredBikes(newBikes);
+      productContext.getBikes(productContext.currentPageNumber, productContext.itemsPerPage);
       setIsDeleting(false);
       toast.success("Bike is deleted");
     } catch (err) {
       console.log("err:", err);
       setIsDeleting(false);
-      toast.success("Something went wrong. Internal server error");
+      toast.success("Something went wrong. Bike couldn't be deleted");
     }
   }
 
@@ -66,7 +67,7 @@ function Card({ product }) {
       </div>
       <div className="px-2">
         <h3 className="text-xl font-bold text-green-950">₹ {formattedPrice(product?.bike_meta[0]?.asking_price)}</h3>
-        <h5 className="text-sm text-green-950">{product?.bike_meta[0]?.year_of_model} - {formattedPrice(product?.bike_meta[0]?.kms_run)} km</h5>
+        <h5 className="text-sm text-green-950">{product?.bike_meta[0]?.buy_year} - {formattedPrice(product?.bike_meta[0]?.kms_run)} km</h5>
         <div className="truncate text-sm text-slate-600">{product?.bike_meta[0]?.details}</div>
       </div>
       {

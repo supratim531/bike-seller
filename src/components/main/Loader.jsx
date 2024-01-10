@@ -15,8 +15,8 @@ function Loader() {
   return (
     <>
       <Lottie options={defaultOptions}
-        height={450}
-        width={400}
+        height={250}
+        width={250}
         style={{ marginTop: "70px" }}
       />
       {/* <div className="flex space-x-2 justify-center items-center h-[70vh] bg-white">
