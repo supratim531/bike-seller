@@ -16,7 +16,7 @@ function Navbar() {
           <div className="absolute -top-5">
             <img className="w-8" src={bikeLogo} alt="" />
           </div>
-          <Link to={'/'} className="text-lg sm:text-2xl font-semibold text-white">Bike.com</Link>
+          <Link to={'/'} className="text-lg sm:text-2xl font-semibold text-white">S.Auto</Link>
           <Link to={'/'} className="ml-3 sm:ml-4 text-[0.7rem] min-[330px]:text-sm sm:text-base text-white">Products</Link>
         </div>
         <div className="">

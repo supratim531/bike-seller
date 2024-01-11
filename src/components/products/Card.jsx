@@ -43,19 +43,23 @@ function Card({ product }) {
     }
   }
 
+  const fullScreenOnClick = () => {
+  }
+
   return (
-    <Link to={`/bike?bike_model_id=${product?.bike_model_id}&bike_model=${product?.bike_model}&brand_name=${product?.brand_name}&bike_name=${product?.bike_name}`} className="group p-2 rounded outline outline-1 outline-slate-300 bg-white">
+    <Link className="group p-2 rounded outline outline-1 outline-slate-300 bg-white" to={`/bike?bike_model_id=${product?.bike_model_id}&bike_model=${product?.bike_model}&brand_name=${product?.brand_name}&bike_name=${product?.bike_name}`}>
       <div className="h-52 mb-4">
         {
           product?.image_path === "" ?
             <img src={noImage} alt="" className="h-full w-full object-cover object-center duration-100 group-hover:opacity-75" /> :
-            <div className="h-full w-full object-cover object-center duration-100 group-hover:opacity-75">
-              <TransformWrapper defaultScale={1}>
-                <TransformComponent contentStyle={{ height: "100%", width: "100%" }} wrapperStyle={{ height: "100%", width: "100%", backgroundColor: "rgb(224, 224, 224)" }}>
-                  <img src={`${domain + product?.image_path}`} alt="" className="h-full w-full object-contain object-center" />
-                </TransformComponent>
-              </TransformWrapper>
-            </div>
+            <img src={`${domain + product?.image_path}`} alt="" className="h-full w-full object-cover object-center duration-100 group-hover:opacity-75" />
+          // <div className="h-full w-full object-cover object-center duration-100 group-hover:opacity-75">
+          //   <TransformWrapper defaultScale={1}>
+          //     <TransformComponent contentStyle={{ height: "100%", width: "100%" }} wrapperStyle={{ height: "100%", width: "100%", backgroundColor: "rgb(224, 224, 224)" }}>
+          //       <img src={`${domain + product?.image_path}`} alt="" className="h-full w-full object-contain object-center" />
+          //     </TransformComponent>
+          //   </TransformWrapper>
+          // </div>
         }
       </div>
       <div className="px-2">

@@ -7,7 +7,7 @@ import ProductContext from '../context/ProductContext';
 import BrowserTitleBar from '../components/BrowserTitleBar';
 import ReactPaginate from "react-paginate";
 
-function ProductsTest() {
+function PaginatedProducts() {
   const [bikes, setBikes] = useState([]);
   const [filteredBikes, setFilteredBikes] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -99,17 +99,19 @@ function ProductsTest() {
       </ProductContext.Provider>
 
       <ReactPaginate
+        disabledLinkClassName="cursor-default text-[#2184c3]"
+        activeLinkClassName="cursor-default py-1 rounded-full border border-[#2184c3] text-[#2184c3]"
         breakClassName="px-2 flex flex-wrap items-center text-white bg-[#51bae8]"
         pageClassName="flex items-center text-white bg-[#51bae8]"
         pageLinkClassName="px-3"
-        nextClassName="px-3 py-3 rounded-r-full bg-[#51bae8]"
-        previousClassName="px-3 py-3 rounded-l-full bg-[#51bae8]"
+        nextClassName="px-3 py-3 rounded-r-full bg-[#51bae8] text-white"
+        previousClassName="px-3 py-3 rounded-l-full bg-[#51bae8] text-white"
         className="flex justify-center my-6"
         breakLabel="..."
-        nextLabel={<i className="fa-solid fa-angle-right text-lg text-[#2184c3]"></i>}
+        nextLabel={<i className="fa-solid fa-angle-right text-lg"></i>}
         onPageChange={handlePageClick}
         pageCount={pageCount}
-        previousLabel={<i className="fa-solid fa-angle-left text-lg text-[#2184c3]"></i>}
+        previousLabel={<i className="fa-solid fa-angle-left text-lg"></i>}
         renderOnZeroPageCount={null}
         pageRangeDisplayed={0}
       />
@@ -117,4 +119,4 @@ function ProductsTest() {
   );
 }
 
-export default ProductsTest;
+export default PaginatedProducts;
