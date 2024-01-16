@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { unauthorizedAxios } from '../axios/axios';
-import Card from '../components/products/Card';
-import Search from '../components/products/Search';
+import Card from '../components/product/Card';
+import Search from '../components/product/Search';
 import Loader from '../components/main/Loader';
 import ProductContext from '../context/ProductContext';
 import BrowserTitleBar from '../components/BrowserTitleBar';

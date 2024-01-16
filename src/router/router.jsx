@@ -1,8 +1,8 @@
 import { Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import App from "../App";
-import AddBike from "../components/main/AddBike";
+import AddBike from "../components/product/AddBike";
 import AdminLogin from "../components/main/AdminLogin";
-import UpdateBike from "../components/main/UpdateBike";
+import UpdateBike from "../components/product/UpdateBike";
 import Page404 from "../components/Page404/Page404";
 // import Products from "../pages/Products";
 import PaginatedProducts from "../pages/PaginatedProducts";

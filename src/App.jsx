@@ -3,7 +3,6 @@ import { Toaster } from 'react-hot-toast';
 import { Outlet } from 'react-router-dom';
 import Footer from './components/main/Footer';
 import Navbar from './components/main/Navbar';
-import Test from './components/Test';
 import RootContext from './context/RootContext';
 
 function App() {
@@ -30,7 +29,6 @@ function App() {
       <div><Toaster /></div>
 
       <Navbar />
-      {/* <Test /> */}
       <div className="min-h-[100vh]"><Outlet /></div>
       <Footer />
     </RootContext.Provider>

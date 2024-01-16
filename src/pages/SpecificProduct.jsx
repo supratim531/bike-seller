@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { unauthorizedAxios } from '../axios/axios';
-import BikeCarousel from '../components/main/BikeCarousel';
-import Loader from '../components/main/Loader';
-import Card from '../components/products/Card';
-import BrowserTitleBar from '../components/BrowserTitleBar';
 import { formattedPrice } from '../utils/formattedPrice';
+import BikeCarousel from '../components/carousel/BikeCarousel';
+import Loader from '../components/main/Loader';
+import Card from '../components/product/Card';
+import BrowserTitleBar from '../components/BrowserTitleBar';
 
 function SpeceficProduct() {
   const [bike, setBike] = useState(null);
@@ -59,8 +59,7 @@ function SpeceficProduct() {
         !isLoading &&
         <BrowserTitleBar title={`${bike?.bike_name} - ${bike?.brand_name}, ${bike?.bike_model}, ${bike?.bike_meta[0]?.engine_cc} CC`} />
       }
-
-      <div className="bg-[#f2f4f5]">
+      <div>
         {
           isLoading ? <Loader /> :
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
