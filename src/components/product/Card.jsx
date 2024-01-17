@@ -53,6 +53,7 @@ function Card({ product }) {
       </div>
       <div className="px-2">
         <h3 className="text-xl font-bold text-green-950">₹ {formattedPrice(product?.bike_meta[0]?.asking_price)}</h3>
+        <h5 className="py-2 leading-5 font-medium text-green-950">{product?.brand_name}, {product?.bike_model} ({product?.bike_meta[0]?.engine_cc} CC)</h5>
         <h5 className="text-sm text-green-950">{product?.bike_meta[0]?.buy_year} - {formattedPrice(product?.bike_meta[0]?.kms_run)} km</h5>
         <div className="truncate text-sm text-slate-600">{product?.bike_meta[0]?.details}</div>
       </div>
